@@ -13,7 +13,7 @@ library(readxl)
 # Ingestion de données 
 
 ## Location the Data Source 
-xls_data <- "data/WB_HT_DATA.xlsx"
+xls_data <- "WB_HT_DATA.xlsx"
 
 ## Lecture du fichier et coup d'oeil
 rawData <- read_excel(xls_data, sheet = "Data")
