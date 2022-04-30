@@ -13,7 +13,7 @@ library(readxl)
 # Ingestion de données 
 
 ## Location the Data Source 
-xls_data <- "WB_HT_DATA.xlsx"
+xls_data <- "data/WB_HT_DATA.xlsx"
 
 ## Lecture du fichier et coup d'oeil
 rawData <- read_excel(xls_data, sheet = "Data")
@@ -72,20 +72,22 @@ brh_data_df_long_liquidities <- brh_data_df_long %>%
 colors <- c("Liquidite" = "green", "Tendance" = "red")
 
 ggplot(brh_data_df_long_liquidities, aes(year)) +
-geom_line(aes(y = value, color = "Liquidite")) +
-geom_smooth( aes(year,value, color = "Tendance"), se = FALSE) + 
-geom_vline(xintercept = 2008, linetype = "dashed", color = "red") +
-geom_text(aes(x=2008, label="Crise Financière", y=85), colour="black", angle=90,vjust = -1.2, text=element_text(size=11))+
-geom_vline(xintercept = 2010, linetype = "dashed", color = "red") +
-geom_text(aes(x=2010, label="Tremblement de Terre", y=85), colour="black", angle=90,vjust = -1.2, text=element_text(size=11))+
-geom_vline(xintercept = 2015, linetype = "dashed", color = "red") +
-geom_text(aes(x=2015, label="BIC Operationnel", y=85), colour="black", angle=90,vjust = -1.2, text=element_text(size=11))+
-geom_vline(xintercept = 2016, linetype = "dashed", color = "red") +
-geom_text(aes(x=2016, label="Cyclone Matthieu", y=85), colour="black", angle=90,vjust = -1.2, text=element_text(size=11))+
-geom_vline(xintercept = 2019, linetype = "dashed", color = "red") +
-geom_text(aes(x=2019, label="Covid-19", y=85), colour="black", angle=90,vjust = -1.2, text=element_text(size=11))+
-labs(title=paste("Ratio des réserves liquides des banques sur leurs actifs (%)"), color = "Legend") + 
-scale_color_manual(values = colors)
+        geom_line(aes(y = value, color = "Liquidite")) +
+        geom_smooth( aes(year,value, color = "Tendance"), se = FALSE) + 
+        geom_vline(xintercept = 2008, linetype = "dashed", color = "red") +
+        geom_text(aes(x=2008, label="Crise Financière", y=85), colour="black", angle=90,vjust = -0.5, text=element_text(size=8))+
+        geom_vline(xintercept = 2010, linetype = "dashed", color = "red") +
+        geom_text(aes(x=2010, label="Tremblement de Terre", y=85), colour="black", angle=90,vjust = -0.5, text=element_text(size=8))+
+        geom_vline(xintercept = 2015, linetype = "dashed", color = "red") +
+        geom_text(aes(x=2015, label="BIC Operationnel", y=85), colour="black", angle=90,vjust = -0.5, text=element_text(size=8))+
+        geom_vline(xintercept = 2016, linetype = "dashed", color = "red") +
+        geom_text(aes(x=2016, label="Cyclone Matthieu", y=85), colour="black", angle=90,vjust = -0.5, text=element_text(size=8))+
+        geom_vline(xintercept = 2019, linetype = "dashed", color = "red") +
+        geom_text(aes(x=2019, label="Covid-19", y=85), colour="black", angle=90,vjust = -0.5, text=element_text(size=8))+
+        labs(title=paste("Ratio des réserves liquides des banques sur leurs actifs (%)"), color = "Legend") + 
+        scale_color_manual(values = colors) + 
+        xlab("Années") + 
+        ylab("% du PIB")
 
 
 
@@ -93,26 +95,23 @@ scale_color_manual(values = colors)
 # Graphe 3.1
 
 brh_data_df_long_transferts <- brh_data_df_long %>% 
-        filter(IndicatorCode == "NY.TRF.NCTR.CD" & value > 0 & year >=2000)
+        filter(IndicatorCode == "NY.TRF.NCTR.CN" & value > 0 & year >=2000)
 
-
-colors <- c("Liquidite" = "green")
+colars <- c("Transferts" = "green")
 
 ggplot(brh_data_df_long_transferts, aes(year)) +
         geom_line(aes(y = value, color = "Transferts")) +
-        scale_y_log10() + 
         geom_vline(xintercept = 2008, linetype = "dashed", color = "red") +
-        geom_text(aes(x=2008, label="Crise Financière", y=85), colour="black", angle=90,vjust = -1.2, text=element_text(size=11))+
+        geom_text(aes(x=2008, label="Crise Financière", y=85), colour="black", angle=90,vjust = -0.5, text=element_text(size=8))+
         geom_vline(xintercept = 2010, linetype = "dashed", color = "red") +
-        geom_text(aes(x=2010, label="Tremblement de Terre", y=85), colour="black", angle=90,vjust = -1.2, text=element_text(size=11))+
+        geom_text(aes(x=2010, label="Tremblement de Terre", y=85), colour="black", angle=90,vjust = -0.5, text=element_text(size=8))+
         geom_vline(xintercept = 2016, linetype = "dashed", color = "red") +
-        geom_text(aes(x=2016, label="Cyclone Matthieu", y=85), colour="black", angle=90,vjust = -1.2, text=element_text(size=11))+
+        geom_text(aes(x=2016, label="Cyclone Matthieu", y=85), colour="black", angle=90,vjust = -0.5, text=element_text(size=8))+
         geom_vline(xintercept = 2019, linetype = "dashed", color = "red") +
-        geom_text(aes(x=2019, label="Covid-19", y=85), colour="black", angle=90,vjust = -1.2, text=element_text(size=11))+
+        geom_text(aes(x=2019, label="2019", y=85), colour="black", angle=90,vjust = -0.3, text=element_text(size=8))+
+        geom_vline(xintercept = 2020, linetype = "dashed", color = "red") +
+        geom_text(aes(x=2020, label="2020", y=85), colour="black", angle=90,vjust = 0.9, text=element_text(size=8))+
         labs(title=paste("Evolution des transferts annuelles (en % du PIB)"), color = "Legend") + 
-        scale_color_manual(values = colors)
-        
-
-
-
-
+        scale_color_manual(values = colars) + 
+        xlab("Années") + 
+        ylab("% du PIB")
